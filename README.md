@@ -1,6 +1,6 @@
 # download-stream
 # -------------------------------
-# FFmpeg Download Stream Cheat Sheet
+# Live stream download guide
 # -------------------------------
 
 prerequisites:
@@ -13,22 +13,22 @@ prerequisites:
       - add ffmpeg.exe to PATH
   - stream URL from Ant Media Server
     examples:
-      - RTMP: rtmp://192.168.43.6/live/mp4test
-      - HLS: http://192.168.43.6:5080/LiveApp/streams/mp4test.m3u8
+      - RTMP: rtmp://<ip>/live/mp4test
+      - HLS: http://<ip>:5080/LiveApp/streams/mp4test.m3u8
   - output directory for saving files
 
 commands:
   # 1. Download RTMP Stream
   download_rtmp: >
-    ffmpeg -i rtmp://192.168.43.6/live/mp4test -c copy output.mp4
+    ffmpeg -i rtmp:/<ip>/live/mp4test -c copy output.mp4
 
   # 2. Download HLS Stream
   download_hls: >
-    ffmpeg -i http://192.168.43.6:5080/LiveApp/streams/mp4test.m3u8 -c copy output.mp4
+    ffmpeg -i http://<ip>:5080/LiveApp/streams/mp4test.m3u8 -c copy output.mp4
 
   # 3. Download with fixed duration (e.g., 60 seconds)
   download_duration: >
-    ffmpeg -i rtmp://192.168.43.6/live/mp4test -c copy -t 60 output.mp4
+    ffmpeg -i rtmp://<ip>/live/mp4test -c copy -t 60 output.mp4
 
 alternatives:
   - FFmpeg: "Fast, free, command-line, reliable for live streams"
@@ -50,9 +50,9 @@ example_workflow:
       sudo ./start.sh
   2: "Start FFmpeg on host OS to stream to VM"
     command: >
-      ffmpeg -re -i rtmp://192.168.43.6/live/mp4test -c copy output.mp4
+      ffmpeg -re -i rtmp://<ip>/live/mp4test -c copy output.mp4
   3: "Open browser and play stream"
-     url: "http://192.168.43.6:5080/LiveApp/play.html?name=mp4test"
+     url: "http://<ip>/LiveApp/play.html?name=mp4test"
   4: "Stop recording when done (Ctrl+C)"
   5: "Verify output.mp4 plays correctly"
 
